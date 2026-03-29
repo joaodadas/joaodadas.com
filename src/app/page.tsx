@@ -51,8 +51,21 @@ export default function Home() {
       <div className={shouldAnimate ? "animate-5" : ""}>
         <h1 className="text-2xl font-normal">João Vitor Dadas</h1>
         <p className="mt-1 text-lg text-muted-foreground">
-          Somewhere between finance and tech
+          Software Engineer at EBANX
         </p>
+        <div className="mt-6 flex flex-col gap-4 text-base text-foreground">
+          <p>
+            I&apos;m a software engineer in my twenties from Brazil. I have a
+            deep appreciation for design and I&apos;m constantly refining my eye
+            for UI/UX, building things that not only work well but feel right.
+          </p>
+          <p>
+            Outside of work, I&apos;m learning how to build companies from
+            scratch, currently building Clynea, and experimenting with new
+            ideas. I believe the best way to learn is by shipping, and
+            that&apos;s exactly what I&apos;m doing.
+          </p>
+        </div>
       </div>
 
       {/* PROJECTS */}
@@ -78,12 +91,15 @@ export default function Home() {
                       viewBox="0 0 15 15"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      className="arrow-draw"
                     >
                       <path
-                        d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9C12 9.27614 11.7761 9.5 11.5 9.5C11.2239 9.5 11 9.27614 11 9L11 4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-                        fill="currentColor"
-                        fillRule="evenodd"
-                        clipRule="evenodd"
+                        d="M4 11L11 4M11 4H6M11 4V9"
+                        stroke="currentColor"
+                        strokeWidth={1.2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        pathLength={1}
                       />
                     </svg>
                   </span>
@@ -131,10 +147,6 @@ export default function Home() {
         </LinkTextFooter>
         <LinkTextFooter href="https://www.linkedin.com/in/jo%C3%A3o-vitor-dadas/">
           LinkedIn
-        </LinkTextFooter>
-        <LinkTextFooter href="mailto:dadasjv@hotmail.com">Email</LinkTextFooter>
-        <LinkTextFooter href="https://noon-peace-17b.notion.site/Jo-o-Vitor-Dadas-13723ef5b82580bbb164ced6a2b3633d?pvs=4">
-          Resume
         </LinkTextFooter>
       </div>
     </>
