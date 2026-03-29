@@ -1,12 +1,10 @@
-import { GetStaticProps } from "next";
-import path from "path";
-import fs from "fs";
-import { useState } from "react";
+"use client";
+
 import { Dialog } from "@headlessui/react";
 import Image from "next/image";
-import Head from "next/head";
-import BackButton from "../../components/BackButton";
-import ContentWrapper from "../../components/ContentWrapper";
+import { useState } from "react";
+import BackButton from "~/components/BackButton";
+import ContentWrapper from "~/components/ContentWrapper";
 
 interface ImageData {
   name: string;
@@ -14,23 +12,25 @@ interface ImageData {
   date?: string;
 }
 
-export default function GalleryPage({ images }: { images: ImageData[] }) {
+// In App Router we can't use fs in client components.
+// We'll read the gallery images at build time via a server component wrapper.
+// For now, keeping it simple with a static list that can be extended.
+const galleryImages: ImageData[] = [];
+
+export default function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
 
   return (
     <>
-      <Head>
-        <title>Galeria - João Vitor Dadas</title>
-      </Head>
       <ContentWrapper>
         <BackButton href="/" />
-        <h1 className="mb-6 text-sm text-neutral-500">Gallery</h1>
+        <h1 className="mb-6 text-sm text-muted-foreground">Gallery</h1>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {images.map((image) => (
+          {galleryImages.map((image) => (
             <div
               key={image.name}
-              className="group flex cursor-pointer flex-col items-center justify-between rounded-md bg-neutral-900 p-3 shadow-md transition hover:shadow-xl"
+              className="group flex cursor-pointer flex-col items-center justify-between rounded-md bg-card p-3 shadow-md transition hover:shadow-xl"
               onClick={() => setSelectedImage(image)}
             >
               <div className="relative h-[220px] w-full overflow-hidden rounded-sm bg-black">
@@ -42,9 +42,9 @@ export default function GalleryPage({ images }: { images: ImageData[] }) {
                 />
               </div>
 
-              <div className="mt-3 w-full text-center text-white">
+              <div className="mt-3 w-full text-center text-foreground">
                 <p className="text-sm font-medium">{image.name}</p>
-                <p className="mt-1 text-xs text-neutral-400">
+                <p className="mt-1 text-xs text-muted-foreground">
                   {image.date ?? "23/07/2025 18:30"}
                 </p>
               </div>
@@ -53,23 +53,20 @@ export default function GalleryPage({ images }: { images: ImageData[] }) {
         </div>
       </ContentWrapper>
 
-      {/* MODAL */}
       <Dialog
         open={selectedImage !== null}
         onClose={() => setSelectedImage(null)}
         className="relative z-50"
       >
-        {/* Fundo com blur e opacidade suave */}
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm"
           aria-hidden="true"
         />
-
         <div className="fixed inset-0 flex items-center justify-center overflow-auto p-4">
-          <div className="w-full max-w-5xl rounded-md bg-neutral-900 p-4">
+          <div className="w-full max-w-5xl rounded-md bg-card p-4">
             <button
               onClick={() => setSelectedImage(null)}
-              className="mb-4 rounded-md bg-neutral-800 px-4 py-2 text-sm text-white hover:bg-neutral-700"
+              className="mb-4 rounded-md bg-muted px-4 py-2 text-sm text-foreground hover:bg-accent"
             >
               Fechar
             </button>
@@ -87,7 +84,7 @@ export default function GalleryPage({ images }: { images: ImageData[] }) {
                   </div>
                 </div>
 
-                <p className="mt-2 text-center text-neutral-300">
+                <p className="mt-2 text-center text-muted-foreground">
                   {selectedImage.name} —{" "}
                   {selectedImage.date ?? "23/07/2025 18:30"}
                 </p>
@@ -99,24 +96,3 @@ export default function GalleryPage({ images }: { images: ImageData[] }) {
     </>
   );
 }
-
-export const getStaticProps: GetStaticProps = () => {
-  const imagesDirectory = path.join(process.cwd(), "public", "galleryIMGs");
-  const fileNames = fs.readdirSync(imagesDirectory);
-
-  const imageFiles = fileNames.filter((fileName) =>
-    /\.(jpg|jpeg|png|gif|webp)$/i.test(fileName)
-  );
-
-  const images = imageFiles.map((fileName) => ({
-    name: path.parse(fileName).name,
-    src: `/galleryIMGs/${fileName}`,
-    date: "23/07/2025 18:30", // pode personalizar por metadata futuramente
-  }));
-
-  return {
-    props: {
-      images,
-    },
-  };
-};

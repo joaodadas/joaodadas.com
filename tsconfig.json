@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "checkJs": true,
     "skipLibCheck": true,
@@ -18,15 +22,30 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/*"]
-    }
+      "~/*": [
+        "./src/*"
+      ],
+      "#site/content": [
+        "./.velite"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    ".eslintrc.cjs",
-    "next-env.d.ts",
+    "**/*.cjs",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.cjs"
-, "next.config.js"  ],
-  "exclude": ["node_modules", "**/*.js"]
+    ".eslintrc.cjs",
+    ".velite/**/*.ts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "next.config.js"
+  ]
 }

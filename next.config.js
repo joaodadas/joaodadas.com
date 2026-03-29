@@ -1,14 +1,19 @@
-const withMDX = require("@next/mdx")({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-    providerImportSource: "@mdx-js/react",
-  },
-});
+const { build } = require("velite");
 
-module.exports = withMDX({
-  pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+class VeliteWebpackPlugin {
+  static started = false;
+  apply(compiler) {
+    compiler.hooks.beforeCompile.tapPromise("VeliteWebpackPlugin", async () => {
+      if (VeliteWebpackPlugin.started) return;
+      VeliteWebpackPlugin.started = true;
+      const dev = compiler.options.mode === "development";
+      await build({ watch: dev, clean: !dev });
+    });
+  }
+}
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -18,4 +23,10 @@ module.exports = withMDX({
       },
     ],
   },
-});
+  webpack: (config) => {
+    config.plugins.push(new VeliteWebpackPlugin());
+    return config;
+  },
+};
+
+module.exports = nextConfig;
