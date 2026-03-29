@@ -8,7 +8,7 @@ interface CodeProps {
 const Code = ({ children, ...props }: CodeProps) => {
   return (
     <pre
-      className="my-4 overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-50 p-4 text-sm"
+      className="my-4 overflow-x-auto rounded-lg border border-border bg-muted p-4 text-sm"
       {...props}
     >
       {children}

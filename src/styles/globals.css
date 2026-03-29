@@ -2,7 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 15%;
+    --primary: 0 0% 15%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 92%;
+    --accent-foreground: 0 0% 15%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 15%;
+    --selected: 0 0% 90%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 24 10% 10%;
+    --foreground: 20 5% 90%;
+    --card: 20 14% 12%;
+    --card-foreground: 20 5% 90%;
+    --popover: 20 14% 12%;
+    --popover-foreground: 20 5% 90%;
+    --primary: 20 5% 90%;
+    --primary-foreground: 20 14% 10%;
+    --secondary: 20 10% 16%;
+    --secondary-foreground: 20 5% 90%;
+    --muted: 20 10% 16%;
+    --muted-foreground: 20 5% 55%;
+    --accent: 20 10% 20%;
+    --accent-foreground: 20 5% 90%;
+    --destructive: 0 62% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 20 10% 20%;
+    --input: 20 10% 20%;
+    --ring: 20 5% 90%;
+    --selected: 20 10% 22%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
 
   ::selection {
     background: #49494949;
@@ -12,83 +67,12 @@
     width: 0px;
   }
 
-  firefox-scrollbar-fix {
+  .firefox-scrollbar-fix {
     scrollbar-width: none;
   }
+}
 
-  html {
-    background-color: #ffffff;
-  }
-  
-  body {
-    background-color: #ffffff;
-  }
-
-  /* .typing-text {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 1px solid white;
-    animation:
-      typing 3.5s steps(17, end) forwards,
-      blink 0.8s step-end infinite;
-  }
-  
-  
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 13ch } 
-  }
-  
-  @keyframes blink {
-    0%, 100% { border-color: transparent }
-    50% { border-color: white }
-  } */
-  
-  /* GLITCH EFECT */
-
-  /* .glitch-text {
-    position: relative;
-    color: white;
-  }
-  
-  .glitch-text::before,
-  .glitch-text::after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0;
-    width: 100%;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-  }
-  
-  .glitch-text::before {
-    animation: glitchTop 2s infinite linear alternate-reverse;
-    color: #f0f;
-  }
-  
-  .glitch-text::after {
-    animation: glitchBottom 2s infinite linear alternate-reverse;
-    color: #0ff;
-  }
-  
-  @keyframes glitchTop {
-    0% { clip: rect(0, 9999px, 0, 0); }
-    10% { clip: rect(0, 9999px, 10px, 0); }
-    20% { clip: rect(0, 9999px, 0, 0); }
-    30% { clip: rect(10px, 9999px, 20px, 0); }
-    100% { clip: rect(0, 9999px, 0, 0); }
-  }
-  
-  @keyframes glitchBottom {
-    0% { clip: rect(0, 9999px, 0, 0); }
-    10% { clip: rect(5px, 9999px, 15px, 0); }
-    20% { clip: rect(0, 9999px, 0, 0); }
-    30% { clip: rect(15px, 9999px, 25px, 0); }
-    100% { clip: rect(0, 9999px, 0, 0); }
-  }
-   */
-
+@layer components {
   @keyframes smoothFadeInUp {
     0% {
       opacity: 0;
@@ -99,28 +83,24 @@
       transform: translateY(0);
     }
   }
-  
+
   .animate-5 {
-    animation: smoothFadeInUp 0.5s cubic-bezier(0,-0.02,.49,.99) 0.1s both;
+    animation: smoothFadeInUp 0.5s cubic-bezier(0, -0.02, 0.49, 0.99) 0.1s both;
   }
-  
+
   .animate-7 {
-    animation: smoothFadeInUp 0.5s cubic-bezier(0,-0.02,.49,.99) 0.3s both;
+    animation: smoothFadeInUp 0.5s cubic-bezier(0, -0.02, 0.49, 0.99) 0.3s both;
   }
-  
+
   .animate-10 {
-    animation: smoothFadeInUp 0.5s cubic-bezier(0,-0.02,.49,.99) 0.5s both;
+    animation: smoothFadeInUp 0.5s cubic-bezier(0, -0.02, 0.49, 0.99) 0.5s both;
   }
 
   .animate-13 {
-    animation: smoothFadeInUp 0.5s cubic-bezier(0,-0.02,.49,.99) 0.7s both;
+    animation: smoothFadeInUp 0.5s cubic-bezier(0, -0.02, 0.49, 0.99) 0.7s both;
   }
 
   .animate-15 {
-    animation: smoothFadeInUp 0.5s cubic-bezier(0,-0.02,.49,.99) 1s both;
+    animation: smoothFadeInUp 0.5s cubic-bezier(0, -0.02, 0.49, 0.99) 1s both;
   }
 }
-
-
-
-

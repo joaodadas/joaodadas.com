@@ -14,7 +14,7 @@ const LinkTextFooter = ({
   return (
     <Link
       href={href}
-      className={`text-neutral-400 transition duration-200 ease-in-out hover:text-neutral-600 ${className}`}
+      className={`text-muted-foreground transition duration-200 ease-in-out hover:text-foreground ${className}`}
     >
       {children}
     </Link>

@@ -5,7 +5,7 @@ interface OrderedListProps {
 }
 
 const OrderedList = ({ children }: OrderedListProps) => {
-  return <ul className="list-decimal text-neutral-400 text-base pl-8 marker:text-neutral-700 mt-2">{children}</ul>;
+  return <ul className="list-decimal text-muted-foreground text-base pl-8 marker:text-foreground mt-2">{children}</ul>;
 };
 
 export default OrderedList;

@@ -29,13 +29,13 @@ const PostPreview = ({
     <Link href={`/blog/${slug}`}>
       <div className="group flex justify-between pb-6">
         <div className="flex flex-col gap-1.5">
-          <h2 className="text-base text-neutral-700 transition duration-200 ease-in-out group-hover:text-neutral-500">
+          <h2 className="text-base text-foreground transition duration-200 ease-in-out group-hover:text-muted-foreground">
             {title}
           </h2>
-          <p className="text-sm text-neutral-400">{description}</p>
+          <p className="text-sm text-muted-foreground">{description}</p>
         </div>
         {showDate ? (
-          <p className="hidden min-w-fit text-sm text-neutral-300 md:block">
+          <p className="hidden min-w-fit text-sm text-muted-foreground/60 md:block">
             {formattedDate}
           </p>
         ) : null}

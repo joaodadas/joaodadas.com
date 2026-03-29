@@ -1,14 +1,9 @@
 import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
-import { Inter, Sedan, Playfair_Display } from "next/font/google";
+import { Sedan, Playfair_Display } from "next/font/google";
 import Header from "~/components/Header";
+import { ThemeProvider } from "~/components/ThemeProvider";
 import "~/styles/globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
 
 const sedan = Sedan({
   subsets: ["latin"],
@@ -45,14 +40,17 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${sedan.variable} ${playfairDisplay.variable}`}
+      className={`${sedan.variable} ${playfairDisplay.variable}`}
+      suppressHydrationWarning
     >
       <body>
-        <Analytics />
-        <main className="mx-auto max-w-[712px] px-4 md:py-10 min-h-[calc(100vh-50px-100px)] mb-10">
-          <Header />
-          {children}
-        </main>
+        <ThemeProvider>
+          <Analytics />
+          <main className="mx-auto max-w-[712px] px-4 md:py-10 min-h-[calc(100vh-50px-100px)] mb-10">
+            <Header />
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
