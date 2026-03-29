@@ -1,0 +1,109 @@
+---
+title: "SVG Animated Wires"
+description: "How to create the animated wires effect with SVG masks, paths, and CSS animations"
+date: "03/29/2026"
+slug: "svg-animated-wires"
+---
+
+I recently got into SVG animations after reading fuma-nama's article on how Clerk built their animated table of contents. The technique was simple but the result looked magical, so I decided to study it from scratch and build something with it.
+
+This post walks through everything I learned, from basic SVG shapes to the final animated wires connecting AI provider icons to a center logo. Every concept builds on the previous one.
+
+### The SVG canvas
+
+SVG is a vector format. Unlike images, it never blurs when you scale it. Every SVG starts with a coordinate system where `(0,0)` is the top-left corner, X grows to the right, and Y grows downward.
+
+The `viewBox` attribute defines the internal coordinate space. The actual size on screen is controlled by CSS. This means you can design at any scale and it stays sharp.
+
+```html
+<svg viewBox="0 0 200 100" class="w-full">
+  <circle cx="100" cy="50" r="30" fill="none" stroke="gray" />
+</svg>
+```
+
+### Masks: the stencil trick
+
+SVG masks work like stencils. You define a shape inside a `<mask>` element, and anything white in the mask is visible, anything black is hidden.
+
+Think of it as cutting a hole in a piece of paper. The mask itself is invisible, it just controls what shows through.
+
+```html
+<mask id="wire-mask">
+  <line x1="25" y1="0" x2="25" y2="100"
+        stroke="white" strokeWidth="2" />
+</mask>
+
+<rect fill="red" mask="url(#wire-mask)" />
+```
+
+The rectangle is 50px wide, but only the 2px where the line exists are visible. This is the core trick behind animated wires.
+
+### Animated wires in 3 steps
+
+The recipe is simple:
+
+1. Draw a line (the wire shape)
+2. Use the line as a mask on a colored rectangle
+3. Animate the rectangle moving along the wire
+
+<WireSteps />
+
+When you add a `linearGradient` to the rectangle instead of a flat color, you get a trailing effect. The gradient fades from transparent to solid, creating the illusion of a spark with a tail.
+
+### Drawing curves with Path
+
+The `<path>` element is the most powerful shape in SVG. Its `d` attribute accepts drawing commands:
+
+- **M** x y — Move the pen (no drawing)
+- **L** x y — Draw a straight line
+- **C** x1 y1, x2 y2, x y — Cubic Bezier curve
+- **Z** — Close the path
+
+For the animated wires connecting icons to a center point, we use S-curves built with cubic Bezier. The control points create a smooth curve that flows naturally between two points.
+
+```
+M 74 74 C 74 170, 260 74, 260 170
+```
+
+This draws a curve from `(74, 74)` to `(260, 170)` with two control points that create the S-shape. The first control point shares the X of the start, and the second shares the X of the end.
+
+### The pathLength trick
+
+Instead of calculating exact dash lengths for animations, SVG lets you normalize any path to a length of 1 with `pathLength="1"`. Then `stroke-dasharray` and `stroke-dashoffset` work on a 0-to-1 scale.
+
+```html
+<path d="..." pathLength="1"
+      stroke-dasharray="0.08 2"
+      stroke-dashoffset="1.08" />
+```
+
+A dash of `0.08` creates a small spark. Animating `stroke-dashoffset` from `1.08` to `-1.08` moves the spark along the entire path. This works regardless of how long or curved the path is.
+
+<SparkDemo />
+
+### Adding glow
+
+SVG filters add the final polish. A `feGaussianBlur` creates a soft glow around the spark, and `feMerge` layers the blur behind the original sharp stroke.
+
+```html
+<filter id="glow">
+  <feGaussianBlur in="SourceGraphic"
+                  stdDeviation="1.2" result="blur" />
+  <feMerge>
+    <feMergeNode in="blur" />
+    <feMergeNode in="SourceGraphic" />
+  </feMerge>
+</filter>
+```
+
+The blur spreads light around the spark, while the merge ensures the original crisp line stays on top. The `stdDeviation` controls how far the glow spreads.
+
+### The result
+
+Putting it all together: four AI provider icons at the corners, Bezier curves connecting each to the center, animated sparks with glow traveling along the wires, and staggered delays so they don't all fire at once.
+
+<AnimatedWiresDemo />
+
+Every concept from above is in this demo. The wires are `<path>` elements with cubic Bezier curves. The sparks use `pathLength="1"` with `stroke-dasharray`. The glow comes from `feGaussianBlur` + `feMerge` filters. And each spark runs on an independent animation delay.
+
+The entire thing is a single `<svg>` element with no JavaScript animation libraries. Just SVG and CSS.

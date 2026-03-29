@@ -17,6 +17,10 @@ import PostHeader from "~/components/PostHeader";
 import Quote from "~/components/md/Quote";
 import Strong from "~/components/md/Strong";
 import UnorderedList from "~/components/md/UnorderedList";
+import WireSteps from "~/components/svg-post/WireSteps";
+import SparkDemo from "~/components/svg-post/SparkDemo";
+import AnimatedWiresDemo from "~/components/svg-post/AnimatedWiresDemo";
+import AlbumCard from "~/components/AlbumCard";
 
 const mdxComponents = {
   h1: H1,
@@ -32,6 +36,10 @@ const mdxComponents = {
   img: CustomImage,
   pre: Code,
   hr: Hr,
+  WireSteps,
+  SparkDemo,
+  AnimatedWiresDemo,
+  AlbumCard,
 };
 
 export function generateStaticParams() {
