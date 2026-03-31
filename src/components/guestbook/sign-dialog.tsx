@@ -3,26 +3,20 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { Dialog } from "@headlessui/react";
-import { toast } from "sonner";
 import SignaturePad from "~/components/signature-pad/signature-pad";
 import { useSignGuestbook } from "~/hooks/use-guestbook";
-
-type SubmitState = "idle" | "signing";
 
 interface SignDialogProps {
   username: string;
   name: string | null;
+  onSigned?: () => void;
 }
 
-export default function SignDialog({ username, name }: SignDialogProps) {
+export default function SignDialog({ username, name, onSigned }: SignDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [signature, setSignature] = useState<string | null>(null);
-  const [submitState, setSubmitState] = useState<SubmitState>("idle");
-
   const mutation = useSignGuestbook();
-  const isSubmitting = submitState !== "idle";
-  const submitLabel = submitState === "signing" ? "Signing..." : "Sign";
 
   function resetForm() {
     setMessage("");
@@ -30,7 +24,6 @@ export default function SignDialog({ username, name }: SignDialogProps) {
   }
 
   function closeDialog() {
-    if (isSubmitting) return;
     setIsOpen(false);
     resetForm();
   }
@@ -39,26 +32,20 @@ export default function SignDialog({ username, name }: SignDialogProps) {
     event.preventDefault();
 
     const trimmedMessage = message.trim();
-    if (!trimmedMessage) {
-      toast.error("Please enter a message");
-      return;
-    }
+    if (!trimmedMessage) return;
 
-    try {
-      setSubmitState("signing");
+    // Close dialog and show optimistic card immediately
+    // Upload + API call happen in the background via mutationFn
+    onSigned?.();
+    setIsOpen(false);
 
-      await mutation.mutateAsync({
-        message: trimmedMessage,
-        signature: signature,
-        author: { username, name },
-      });
+    mutation.mutate({
+      message: trimmedMessage,
+      signature: signature,
+      author: { username, name },
+    });
 
-      closeDialog();
-    } catch {
-      // Error handled by mutation onError (toast)
-    } finally {
-      setSubmitState("idle");
-    }
+    resetForm();
   }
 
   return (
@@ -108,7 +95,6 @@ export default function SignDialog({ username, name }: SignDialogProps) {
               <div className="flex justify-end gap-3 mt-6">
                 <button
                   type="button"
-                  disabled={isSubmitting}
                   onClick={closeDialog}
                   className="px-4 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
@@ -116,10 +102,10 @@ export default function SignDialog({ username, name }: SignDialogProps) {
                 </button>
                 <button
                   type="submit"
-                  disabled={!message.trim() || isSubmitting}
+                  disabled={!message.trim()}
                   className="rounded-md border border-border bg-background px-4 py-1.5 text-sm font-medium text-foreground shadow-sm transition-colors hover:bg-muted disabled:opacity-50"
                 >
-                  {submitLabel}
+                  Sign
                 </button>
               </div>
             </form>

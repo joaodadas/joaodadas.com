@@ -11,6 +11,7 @@ import {
   type GuestbookPost,
   type GuestbookPostsResponse,
 } from "~/lib/api/guestbook";
+import { uploadSignature } from "~/lib/api/signature";
 
 const QUERY_KEY = ["guestbook", "posts"];
 
@@ -40,8 +41,14 @@ export function useSignGuestbook() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ author: _author, ...input }: SignGuestbookInput) =>
-      signGuestbook(input),
+    mutationFn: async ({ author: _author, ...input }: SignGuestbookInput) => {
+      let signatureUrl: string | null = null;
+      if (input.signature) {
+        const { url } = await uploadSignature(input.signature);
+        signatureUrl = url;
+      }
+      return signGuestbook({ message: input.message, signature: signatureUrl });
+    },
 
     onMutate: async (variables: SignGuestbookInput) => {
       await queryClient.cancelQueries({ queryKey: QUERY_KEY });
@@ -93,7 +100,10 @@ export function useSignGuestbook() {
     },
 
     onSettled: () => {
-      void queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      // Small delay so the optimistic card doesn't flash/resize
+      setTimeout(() => {
+        void queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      }, 1000);
     },
   });
 }

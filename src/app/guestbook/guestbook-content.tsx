@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Session } from "next-auth";
 import type { GuestbookPostsResponse } from "~/lib/api/guestbook";
 import SignInButton from "~/components/guestbook/sign-in-button";
@@ -16,8 +17,10 @@ interface GuestbookContentProps {
 export default function GuestbookContent({
   session,
   initialData,
-  hasAlreadySigned,
+  hasAlreadySigned: initialHasSigned,
 }: GuestbookContentProps) {
+  const [hasSigned, setHasSigned] = useState(initialHasSigned);
+
   return (
     <div>
       {session?.user ? (
@@ -26,10 +29,11 @@ export default function GuestbookContent({
             Hello, {session.user.name ?? "friend"}!
           </h1>
           <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            {!hasAlreadySigned ? (
+            {!hasSigned ? (
               <SignDialog
                 username={(session.user as { username?: string }).username ?? ""}
                 name={session.user.name ?? null}
+                onSigned={() => setHasSigned(true)}
               />
             ) : (
               <p className="text-sm text-muted-foreground">
