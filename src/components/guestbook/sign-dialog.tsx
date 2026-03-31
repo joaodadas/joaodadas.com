@@ -28,7 +28,7 @@ export default function SignDialog({ username, name, onSigned }: SignDialogProps
     resetForm();
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>): Promise<void> {
+  function handleSubmit(event: FormEvent<HTMLFormElement>): void {
     event.preventDefault();
 
     const trimmedMessage = message.trim();
@@ -62,7 +62,7 @@ export default function SignDialog({ username, name, onSigned }: SignDialogProps
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         <div className="fixed inset-0 flex items-center justify-center p-4">
           <Dialog.Panel className="w-full max-w-lg rounded-lg border border-border bg-white dark:bg-card p-6 shadow-lg">
-            <form onSubmit={(e) => void handleSubmit(e)}>
+            <form onSubmit={handleSubmit}>
               <Dialog.Title className="text-lg font-semibold text-foreground">
                 Sign my guestbook
               </Dialog.Title>
