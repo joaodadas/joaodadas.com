@@ -7,7 +7,7 @@ slug: "svg-animated-wires"
 
 I recently got into SVG animations after reading fuma-nama's article on how Clerk built their animated table of contents. The technique was simple but the result looked magical, so I decided to study it from scratch and build something with it.
 
-This post walks through everything I learned, from basic SVG shapes to the final animated wires connecting AI provider icons to a center logo. Every concept builds on the previous one.
+This post walks through every concept I learned along the way, and ends with three interactive examples that combine all of them.
 
 ### The SVG canvas
 
@@ -59,17 +59,17 @@ The `<path>` element is the most powerful shape in SVG. Its `d` attribute accept
 - **C** x1 y1, x2 y2, x y — Cubic Bezier curve
 - **Z** — Close the path
 
-For the animated wires connecting icons to a center point, we use S-curves built with cubic Bezier. The control points create a smooth curve that flows naturally between two points.
+For curved wires connecting two points, we use cubic Bezier. The control points create a smooth S-curve that flows naturally.
 
 ```
 M 74 74 C 74 170, 260 74, 260 170
 ```
 
-This draws a curve from `(74, 74)` to `(260, 170)` with two control points that create the S-shape. The first control point shares the X of the start, and the second shares the X of the end.
+This draws a curve from `(74, 74)` to `(260, 170)`. The first control point shares the X of the start, and the second shares the X of the end — that's what creates the S-shape.
 
 ### The pathLength trick
 
-Instead of calculating exact dash lengths for animations, SVG lets you normalize any path to a length of 1 with `pathLength="1"`. Then `stroke-dasharray` and `stroke-dashoffset` work on a 0-to-1 scale.
+Every SVG path has a real length in pixels, which varies depending on the curves. Instead of calculating it, you can normalize any path to whatever number you want with `pathLength`.
 
 ```html
 <path d="..." pathLength="1"
@@ -77,7 +77,9 @@ Instead of calculating exact dash lengths for animations, SVG lets you normalize
       stroke-dashoffset="1.08" />
 ```
 
-A dash of `0.08` creates a small spark. Animating `stroke-dashoffset` from `1.08` to `-1.08` moves the spark along the entire path. This works regardless of how long or curved the path is.
+With `pathLength="1"`, a dash of `0.08` is 8% of the path. Animating `stroke-dashoffset` from `1.08` to `-1.08` moves the spark along the entire path. This works regardless of how long or curved the path actually is.
+
+For the infinity loader later in this post, I use `pathLength="100"` with `stroke-dasharray="15 85"`. Same idea — the sum (15 + 85 = 100) equals the `pathLength`, guaranteeing exactly one visible dash at all times.
 
 <SparkDemo />
 
@@ -98,12 +100,63 @@ SVG filters add the final polish. A `feGaussianBlur` creates a soft glow around 
 
 The blur spreads light around the spark, while the merge ensures the original crisp line stays on top. The `stdDeviation` controls how far the glow spreads.
 
-### The result
+### Clip-path for animated highlights
 
-Putting it all together: four AI provider icons at the corners, Bezier curves connecting each to the center, animated sparks with glow traveling along the wires, and staggered delays so they don't all fire at once.
+A different approach to animation: instead of `stroke-dasharray`, you can use `clip-path: inset()` on a regular DOM element to reveal parts of it.
+
+The technique works like this:
+1. Render the full SVG path twice — one faint (the track), one bright (the highlight)
+2. Wrap the bright one in a `div` with `clip-path: inset(top 0 bottom 0)`
+3. Animate the inset values with CSS transitions
+
+This is how Clerk's animated table of contents works. The highlight smoothly slides along the same SVG path, revealing the active section. Because `clip-path` is GPU-accelerated, it performs well even with complex paths.
+
+```css
+clip-path: inset(60px 0 200px 0);
+transition: clip-path 500ms ease-out;
+```
+
+### Combining two animations
+
+A single `stroke-dashoffset` animation moves a dash along a path — functional, but mechanical. The trick to making it feel alive is combining **two CSS animations with different durations**.
+
+```css
+@keyframes infinity-move {
+  to { stroke-dashoffset: -100; }
+}
+
+@keyframes infinity-dash {
+  0%, 100% { stroke-dasharray: 15 85; }
+  50%      { stroke-dasharray: 40 60; }
+}
+```
+
+The move animation slides the dash (2s, linear). The dash animation breathes its size from 15% to 40% and back (4s, ease-in-out). The `stroke-dasharray` always sums to 100 (matching `pathLength="100"`), so only one dash is ever visible. The different durations create an organic rhythm — the pattern never repeats the same way twice.
+
+---
+
+### The examples
+
+Everything above comes together in these three demos. Each one uses a different combination of the techniques.
+
+### Animated wires
+
+Four AI provider icons at the corners, Bezier curves connecting each to the center, animated sparks with glow traveling along the wires. Each spark runs on an independent animation delay. The wires use `pathLength="1"` with `stroke-dasharray`, and the glow comes from `feGaussianBlur` + `feMerge` filters. The entire thing is a single `<svg>` element with no JavaScript animation libraries.
 
 <AnimatedWiresDemo />
 
-Every concept from above is in this demo. The wires are `<path>` elements with cubic Bezier curves. The sparks use `pathLength="1"` with `stroke-dasharray`. The glow comes from `feGaussianBlur` + `feMerge` filters. And each spark runs on an independent animation delay.
+### Infinity loader
 
-The entire thing is a single `<svg>` element with no JavaScript animation libraries. Just SVG and CSS.
+A single dash flowing along an infinity symbol. Two CSS animations combined — one for movement, one for breathing the dash size — create a fluid, organic feel.
+
+<InfinityDemo />
+
+### Animated table of contents
+
+A dynamic SVG path generated from a list of items with different indentation levels. Bezier curves connect the transitions between levels. The active section highlight uses `clip-path: inset()` animated with CSS transitions, and a small dot tracks the end of the selection. Click any item to move the highlight.
+
+<TocDemo />
+
+---
+
+This post was heavily inspired by [fuma-nama](https://fuma-dev.vercel.app/blog/fumadocs-toc)'s article on how Clerk built their animated table of contents. The infinity loader technique comes from [Fluid Functionalism](https://www.fluidfunctionalism.com/docs/button)'s button component.

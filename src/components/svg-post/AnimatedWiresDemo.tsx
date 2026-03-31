@@ -58,7 +58,7 @@ const ICON_SIZE = 66;
 
 export default function AnimatedWiresDemo() {
   return (
-    <div className="my-8 rounded-lg border border-border overflow-hidden bg-[#080808]">
+    <div className="my-8">
       <style>{`
         ${providers
           .map(
@@ -72,7 +72,7 @@ export default function AnimatedWiresDemo() {
           .join("")}
       `}</style>
 
-      <div className="p-4 sm:p-8 flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <svg
           viewBox={`0 0 ${W} ${H}`}
           className="w-full max-w-lg"
@@ -96,21 +96,15 @@ export default function AnimatedWiresDemo() {
               </filter>
             ))}
 
-            <filter id="invert-white-demo">
-              <feColorMatrix
-                type="matrix"
-                values="-1 0 0 0 1  0 -1 0 0 1  0 0 -1 0 1  0 0 0 1 0"
-              />
-            </filter>
           </defs>
 
           {providers.map((p) => (
             <g key={p.id}>
-              <path d={p.path} stroke="rgb(38,38,38)" strokeWidth="1" fill="none" />
+              <path d={p.path} stroke="currentColor" strokeWidth="1" fill="none" opacity={0.15} />
               <path
                 d={p.path}
                 pathLength={1}
-                stroke="rgb(150,150,150)"
+                stroke="currentColor"
                 strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeDasharray={DASH_ARR}
@@ -133,7 +127,7 @@ export default function AnimatedWiresDemo() {
               y={p.y - 12}
               width={24}
               height={24}
-              filter={p.invert ? "url(#invert-white-demo)" : undefined}
+              className={p.invert ? "dark:invert" : undefined}
             />
           ))}
 

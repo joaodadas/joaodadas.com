@@ -12,7 +12,7 @@ export default function WireSteps() {
   const [step, setStep] = useState(0);
 
   return (
-    <div className="my-8 rounded-lg border border-border overflow-hidden">
+    <div className="my-8">
       <style>{`
         @keyframes wire-down {
           0% { transform: translateY(-20px); }
@@ -24,7 +24,7 @@ export default function WireSteps() {
         }
       `}</style>
 
-      <div className="flex gap-1 p-3 bg-muted/50">
+      <div className="flex gap-1 mb-4">
         {steps.map((s, i) => (
           <button
             key={i}
@@ -40,7 +40,7 @@ export default function WireSteps() {
         ))}
       </div>
 
-      <div className="p-6 flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4">
         <div className="h-32 flex items-center justify-center">
           {step === 0 && (
             <svg viewBox="0 0 50 100" className="w-12 h-24">

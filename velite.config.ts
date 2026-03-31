@@ -25,7 +25,7 @@ export default defineConfig({
   },
   collections: { posts },
   mdx: {
-    rehypePlugins: [[rehypePrettyCode, { theme: "github-light" }]],
+    rehypePlugins: [[rehypePrettyCode, { theme: { dark: "github-dark", light: "github-light" } }]],
     remarkPlugins: [],
   },
 });

@@ -12,7 +12,7 @@ export default function SparkDemo() {
   const DASH_TO = -(1 + SPARK);
 
   return (
-    <div className="my-8 rounded-lg border border-border overflow-hidden">
+    <div className="my-8">
       <style>{`
         @keyframes spark-demo {
           from { stroke-dashoffset: ${DASH_FROM}; }
@@ -20,7 +20,7 @@ export default function SparkDemo() {
         }
       `}</style>
 
-      <div className="p-6 flex flex-col items-center gap-6">
+      <div className="flex flex-col items-center gap-6">
         <svg viewBox="0 0 300 80" className="w-full max-w-md">
           <defs>
             {glow && (

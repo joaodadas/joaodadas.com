@@ -4,7 +4,7 @@ import ContentWrapper from "~/components/ContentWrapper";
 import PostPreview from "~/components/PostPreview";
 
 export const metadata: Metadata = {
-  title: "Blog - João Vitor Dadas",
+  title: "Articles - João Vitor Dadas",
 };
 
 export default function BlogPage() {
@@ -14,6 +14,9 @@ export default function BlogPage() {
 
   return (
     <ContentWrapper>
+      <h1 className="mb-6 font-display text-2xl font-medium italic tracking-tighter">
+        Articles
+      </h1>
       <ul className="flex flex-col">
         {sortedPosts.map((post) => (
           <li key={post.slug}>

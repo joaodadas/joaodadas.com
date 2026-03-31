@@ -68,6 +68,22 @@
     background: #49494949;
   }
 
+  [data-rehype-pretty-code-figure] code[data-theme*=" "],
+  [data-rehype-pretty-code-figure] code[data-theme*=" "] span {
+    color: var(--shiki-light);
+    background-color: transparent;
+  }
+
+  .dark [data-rehype-pretty-code-figure] code[data-theme*=" "],
+  .dark [data-rehype-pretty-code-figure] code[data-theme*=" "] span {
+    color: var(--shiki-dark);
+    background-color: transparent;
+  }
+
+  [data-rehype-pretty-code-figure] pre {
+    background-color: transparent !important;
+  }
+
   ::-webkit-scrollbar {
     width: 0px;
   }
@@ -125,5 +141,20 @@
 
   .group:hover .arrow-draw path {
     animation: drawStroke 0.8s ease-in-out forwards;
+  }
+
+  @keyframes infinity-move {
+    to {
+      stroke-dashoffset: -100;
+    }
+  }
+
+  @keyframes infinity-dash {
+    0%, 100% {
+      stroke-dasharray: 15 85;
+    }
+    50% {
+      stroke-dasharray: 40 60;
+    }
   }
 }

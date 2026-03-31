@@ -20,6 +20,8 @@ import UnorderedList from "~/components/md/UnorderedList";
 import WireSteps from "~/components/svg-post/WireSteps";
 import SparkDemo from "~/components/svg-post/SparkDemo";
 import AnimatedWiresDemo from "~/components/svg-post/AnimatedWiresDemo";
+import InfinityDemo from "~/components/svg-post/InfinityDemo";
+import TocDemo from "~/components/svg-post/TocDemo";
 import AlbumCard from "~/components/AlbumCard";
 
 const mdxComponents = {
@@ -39,6 +41,8 @@ const mdxComponents = {
   WireSteps,
   SparkDemo,
   AnimatedWiresDemo,
+  InfinityDemo,
+  TocDemo,
   AlbumCard,
 };
 

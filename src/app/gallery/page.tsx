@@ -22,7 +22,28 @@ export default function GalleryPage() {
   return (
     <>
       <ContentWrapper>
-        <h1 className="mb-6 text-sm text-muted-foreground">Gallery</h1>
+        <h1 className="font-medium text-2xl tracking-tighter mb-6">Gallery</h1>
+
+        <div className="flex flex-col items-center justify-center py-24 gap-6">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            className="w-6 h-6 text-muted-foreground/60"
+          >
+            <path
+              d="M 12 12 C 14 8.5 19 8.5 19 12 C 19 15.5 14 15.5 12 12 C 10 8.5 5 8.5 5 12 C 5 15.5 10 15.5 12 12 Z"
+              stroke="currentColor"
+              strokeWidth="1.125"
+              strokeLinecap="round"
+              pathLength="100"
+              style={{
+                strokeDasharray: "15 85",
+                animation: "infinity-move 2s linear infinite, infinity-dash 4s ease-in-out infinite",
+              }}
+            />
+          </svg>
+          <p className="text-xs text-muted-foreground/60">em construção</p>
+        </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
           {galleryImages.map((image) => (

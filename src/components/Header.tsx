@@ -6,7 +6,7 @@ import { ThemeSelector } from "~/components/ThemeSelector";
 
 const links = [
   { href: "/", label: "home" },
-  { href: "/blog", label: "blog" },
+  { href: "/blog", label: "articles" },
   { href: "/gallery", label: "gallery" },
   { href: "/guestbook", label: "guestbook" },
 ];
