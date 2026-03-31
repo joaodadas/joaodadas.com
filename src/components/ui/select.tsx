@@ -423,7 +423,9 @@ const SelectContent = forwardRef<HTMLDivElement, SelectContentProps>(
           style={{
             position: "fixed",
             top: triggerRect.bottom + 6,
-            left: triggerRect.left,
+            ...(triggerRect.right > window.innerWidth - 100
+              ? { right: Math.max(8, window.innerWidth - triggerRect.right) }
+              : { left: triggerRect.left }),
             minWidth: triggerRect.width,
             zIndex: 50,
           }}

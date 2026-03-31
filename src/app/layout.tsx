@@ -45,7 +45,7 @@ export default function RootLayout({
       className={`${sedan.variable} ${playfairDisplay.variable}`}
       suppressHydrationWarning
     >
-      <body className="antialiased">
+      <body className="antialiased overflow-x-hidden">
         <ThemeProvider>
           <Providers>
             <Analytics />

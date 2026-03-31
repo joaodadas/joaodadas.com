@@ -28,7 +28,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-2 py-1 text-base transition-colors duration-200 ${
+                className={`px-1.5 sm:px-2 py-1 text-sm sm:text-base transition-colors duration-200 ${
                   isActive
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
