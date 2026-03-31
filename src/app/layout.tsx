@@ -2,7 +2,9 @@ import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Sedan, Playfair_Display } from "next/font/google";
 import Header from "~/components/Header";
+import Providers from "~/components/providers";
 import { ThemeProvider } from "~/components/ThemeProvider";
+import { Toaster } from "sonner";
 import "~/styles/globals.css";
 
 const sedan = Sedan({
@@ -43,13 +45,16 @@ export default function RootLayout({
       className={`${sedan.variable} ${playfairDisplay.variable}`}
       suppressHydrationWarning
     >
-      <body>
+      <body className="antialiased">
         <ThemeProvider>
-          <Analytics />
-          <main className="mx-auto max-w-[712px] px-4 md:py-10 min-h-[calc(100vh-50px-100px)] mb-10">
-            <Header />
-            {children}
-          </main>
+          <Providers>
+            <Analytics />
+            <Toaster />
+            <main className="mx-auto max-w-[712px] px-4 md:py-10 min-h-[calc(100vh-50px-100px)] mb-10">
+              <Header />
+              {children}
+            </main>
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

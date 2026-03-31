@@ -1,6 +1,5 @@
 import { posts } from "#site/content";
 import type { Metadata } from "next";
-import BackButton from "~/components/BackButton";
 import ContentWrapper from "~/components/ContentWrapper";
 import PostPreview from "~/components/PostPreview";
 
@@ -15,7 +14,6 @@ export default function BlogPage() {
 
   return (
     <ContentWrapper>
-      <BackButton href="/" />
       <ul className="flex flex-col">
         {sortedPosts.map((post) => (
           <li key={post.slug}>

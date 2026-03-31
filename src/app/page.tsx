@@ -69,7 +69,7 @@ export default function Home() {
       </div>
 
       {/* PROJECTS */}
-      <div className={`mt-14 ${shouldAnimate ? "animate-7" : ""}`}>
+      <div className={`mt-10 ${shouldAnimate ? "animate-7" : ""}`}>
         <h2 className="mb-4 text-sm text-muted-foreground">Projects</h2>
         <ul className="flex flex-col gap-3">
           {PROJECTS.map((project) => (
@@ -81,7 +81,7 @@ export default function Home() {
                 className="group flex w-full min-w-0 flex-col sm:flex-row sm:items-center gap-1 sm:gap-3"
               >
                 <div className="flex min-w-0 items-center gap-0.5">
-                  <span className="truncate text-base font-medium text-foreground group-hover:underline underline-offset-2">
+                  <span className="truncate text-base font-medium text-primary dark:text-foreground group-hover:underline underline-offset-2">
                     {project.name}
                   </span>
                   <span className="text-muted-foreground">
@@ -114,7 +114,7 @@ export default function Home() {
       </div>
 
       {/* ARTICLES */}
-      <div className={`mt-14 ${shouldAnimate ? "animate-10" : ""}`}>
+      <div className={`mt-10 ${shouldAnimate ? "animate-10" : ""}`}>
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-sm text-muted-foreground">Articles</h2>
           <Link
@@ -140,7 +140,7 @@ export default function Home() {
       </div>
 
       {/* FOOTER LINKS */}
-      <div className="mt-14 flex flex-wrap items-center gap-6 pb-12 text-sm">
+      <div className="mt-10 flex flex-wrap items-center gap-6 pb-12 text-sm">
         <LinkTextFooter href="https://x.com/joaodadas">X</LinkTextFooter>
         <LinkTextFooter href="https://github.com/joaodadas">
           GitHub

@@ -33,7 +33,7 @@ export function ThemeSelector() {
         icon={ThemeIcon}
         placeholder="Theme"
         variant="borderless"
-        className="min-w-[120px] h-8 text-xs"
+        className="min-w-[120px] h-8 text-xs pr-0"
       />
       <SelectContent>
         <SelectItem index={0} value="system" icon={Monitor}>

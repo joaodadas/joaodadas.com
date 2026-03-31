@@ -3,7 +3,6 @@
 import { Dialog } from "@headlessui/react";
 import Image from "next/image";
 import { useState } from "react";
-import BackButton from "~/components/BackButton";
 import ContentWrapper from "~/components/ContentWrapper";
 
 interface ImageData {
@@ -23,7 +22,6 @@ export default function GalleryPage() {
   return (
     <>
       <ContentWrapper>
-        <BackButton href="/" />
         <h1 className="mb-6 text-sm text-muted-foreground">Gallery</h1>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
