@@ -37,7 +37,7 @@ export default function Header() {
         <nav
           className={
             isGallery
-              ? "flex flex-row items-center gap-0.5 px-1.5 py-1.5 rounded-full"
+              ? "flex flex-row items-center gap-0.5 px-1 py-1 sm:px-1.5 sm:py-1.5 rounded-full max-w-[calc(100vw-2rem)] mx-auto"
               : "flex flex-row items-center justify-between"
           }
           style={
@@ -63,7 +63,7 @@ export default function Header() {
                   href={link.href}
                   className={`relative ${
                     isGallery
-                      ? "px-3 py-1.5 text-sm rounded-full flex items-center"
+                      ? "px-2 sm:px-3 py-1.5 text-xs sm:text-sm rounded-full flex items-center"
                       : "px-1.5 sm:px-2 py-1 text-sm sm:text-base"
                   }`}
                   style={isGallery ? { minHeight: "36px" } : undefined}
