@@ -53,9 +53,10 @@ export default function GalleryPage() {
           className="text-[10px] uppercase tracking-widest font-mono px-3 py-1.5 rounded-full"
           style={{
             color: "hsl(var(--muted-foreground) / 0.5)",
-            background: "hsl(var(--background) / 0.4)",
-            backdropFilter: "blur(8px)",
-            WebkitBackdropFilter: "blur(8px)",
+            background: "hsl(var(--background) / 0.35)",
+            backdropFilter: "blur(40px) saturate(2.0) brightness(1.1)",
+            WebkitBackdropFilter: "blur(40px) saturate(2.0) brightness(1.1)",
+            boxShadow: "none",
           }}
         >
           scroll / drag to move

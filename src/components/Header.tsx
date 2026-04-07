@@ -43,9 +43,10 @@ export default function Header() {
           style={
             isGallery
               ? {
-                  background: "hsl(var(--background) / 0.6)",
-                  backdropFilter: "blur(16px) saturate(1.8)",
-                  WebkitBackdropFilter: "blur(16px) saturate(1.8)",
+                  background: "hsl(var(--background) / 0.45)",
+                  backdropFilter: "blur(40px) saturate(2.0) brightness(1.1)",
+                  WebkitBackdropFilter: "blur(40px) saturate(2.0) brightness(1.1)",
+                  boxShadow: "none",
                 }
               : undefined
           }
