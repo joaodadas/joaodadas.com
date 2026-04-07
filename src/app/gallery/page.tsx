@@ -26,18 +26,19 @@ const galleryItems = [
   { src: "/galleryIMGs/space/10.jpg", title: "La Madeleine", description: "Interior da igreja", width: 270, height: 360 },
 ];
 
-// Positions scattered across 2000x1300 canvas — balanced spacing
+// Positions scattered across 2000x1300 canvas
+// Grid-ish layout: ~4 columns × 3 rows, with organic offsets
 const positions = [
-  { x: 80, y: 60 },      // Louvre (large, top-left anchor)
-  { x: 500, y: 520 },    // Soupe (small, center-left)
-  { x: 820, y: 80 },     // Galerie (medium, top-center)
-  { x: 1200, y: 400 },   // Bruschetta (medium, center-right)
-  { x: 160, y: 580 },    // Sashimi (small, left)
-  { x: 1550, y: 60 },    // Wine bar (large, top-right)
-  { x: 600, y: 900 },    // Museum (medium, bottom-center)
-  { x: 1100, y: 800 },   // Nós (large, bottom-right)
-  { x: 950, y: 420 },    // Porsche (medium, center)
-  { x: 1500, y: 700 },   // Madeleine (medium, right)
+  { x: 60, y: 50 },       // 01 Louvre (large) — top-left
+  { x: 540, y: 440 },     // 02 Soupe (small) — mid-left
+  { x: 1050, y: 60 },     // 03 Galerie — top-center-right
+  { x: 1600, y: 480 },    // 04 Bruschetta — mid-right
+  { x: 100, y: 900 },     // 05 Sashimi (small) — bottom-left
+  { x: 520, y: 80 },      // 06 Wine bar (large) — top-center-left
+  { x: 1400, y: 50 },     // 07 Museum — top-right
+  { x: 900, y: 500 },     // 08 Nós (large) — dead center
+  { x: 1580, y: 880 },    // 09 Porsche — bottom-right
+  { x: 500, y: 850 },     // 10 Madeleine — bottom-center-left
 ];
 
 function GalleryHeader() {
