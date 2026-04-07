@@ -14,22 +14,26 @@ export default function BlogPage() {
 
   return (
     <ContentWrapper>
-      <h1 className="mb-6 font-display text-2xl font-medium italic tracking-tighter">
-        Articles
-      </h1>
-      <ul className="flex flex-col">
-        {sortedPosts.map((post) => (
-          <li key={post.slug}>
-            <PostPreview
-              title={post.title}
-              description={post.description}
-              date={post.date}
-              slug={post.slug}
-              showDate
-            />
-          </li>
-        ))}
-      </ul>
+      <div className="animate-5">
+        <h1 className="mb-6 text-2xl font-normal">
+          Articles
+        </h1>
+      </div>
+      <div className="animate-7">
+        <ul className="flex flex-col">
+          {sortedPosts.map((post) => (
+            <li key={post.slug}>
+              <PostPreview
+                title={post.title}
+                description={post.description}
+                date={post.date}
+                slug={post.slug}
+                showDate
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
     </ContentWrapper>
   );
 }

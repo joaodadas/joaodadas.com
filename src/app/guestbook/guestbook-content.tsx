@@ -25,10 +25,12 @@ export default function GuestbookContent({
     <div>
       {session?.user ? (
         <div className="space-y-4">
-          <h1 className="font-medium text-2xl tracking-tighter">
-            Hello, {session.user.name ?? "friend"}!
-          </h1>
-          <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="animate-5">
+            <h1 className="text-2xl font-normal">
+              Hello, {session.user.name ?? "friend"}!
+            </h1>
+          </div>
+          <div className="animate-7 flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             {!hasSigned ? (
               <SignDialog
                 username={(session.user as { username?: string }).username ?? ""}
@@ -45,14 +47,20 @@ export default function GuestbookContent({
         </div>
       ) : (
         <div className="space-y-4">
-          <h1 className="font-medium text-2xl tracking-tighter">
-            Sign my guestbook
-          </h1>
-          <SignInButton />
+          <div className="animate-5">
+            <h1 className="text-2xl font-normal">
+              Sign my guestbook
+            </h1>
+          </div>
+          <div className="animate-7">
+            <SignInButton />
+          </div>
         </div>
       )}
 
-      <PostsList initialData={initialData} />
+      <div className="animate-10">
+        <PostsList initialData={initialData} />
+      </div>
     </div>
   );
 }
