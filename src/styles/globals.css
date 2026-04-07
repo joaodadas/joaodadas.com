@@ -91,6 +91,12 @@
   .firefox-scrollbar-fix {
     scrollbar-width: none;
   }
+
+  html.dragging,
+  html.dragging * {
+    cursor: grabbing !important;
+    user-select: none !important;
+  }
 }
 
 @layer components {
