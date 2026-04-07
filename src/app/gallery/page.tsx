@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef } from "react";
+import { motion } from "framer-motion";
 import { ThemeSelector } from "~/components/ThemeSelector";
 import { useInfiniteCanvas } from "~/components/InfiniteCanvas";
 
@@ -44,25 +45,48 @@ const positions = [
 function GalleryHeader() {
   const pathname = usePathname();
   return (
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[712px] px-4 pt-10 z-20 pointer-events-none">
-      <nav className="flex flex-row items-center justify-between -ml-2 pointer-events-auto">
-        <div className="flex flex-row gap-1">
-          {links.map((link) => {
-            const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`px-1.5 sm:px-2 py-1 text-sm sm:text-base transition-colors duration-200 ${
-                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
+    <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
+      <nav
+        className="flex flex-row items-center gap-0.5 px-1.5 py-1.5 rounded-full pointer-events-auto"
+        style={{
+          background: "hsl(var(--background) / 0.6)",
+          backdropFilter: "blur(16px) saturate(1.8)",
+          WebkitBackdropFilter: "blur(16px) saturate(1.8)",
+        }}
+      >
+        {links.map((link) => {
+          const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
+          return (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="relative px-3 py-1.5 text-sm rounded-full flex items-center"
+              style={{ minHeight: "36px" }}
+            >
+              {isActive && (
+                <motion.span
+                  layoutId="gallery-nav-indicator"
+                  className="absolute inset-0 rounded-full"
+                  style={{ background: "hsl(var(--foreground) / 0.08)" }}
+                  transition={{ type: "spring", duration: 0.4, bounce: 0 }}
+                />
+              )}
+              <span
+                className="relative z-10"
+                style={{
+                  color: isActive
+                    ? "hsl(var(--foreground))"
+                    : "hsl(var(--muted-foreground))",
+                  transitionProperty: "color",
+                  transitionDuration: "200ms",
+                }}
               >
                 {link.label}
-              </Link>
-            );
-          })}
-        </div>
-        <div className="pointer-events-auto">
+              </span>
+            </Link>
+          );
+        })}
+        <div className="ml-0.5">
           <ThemeSelector />
         </div>
       </nav>
@@ -89,8 +113,16 @@ export default function GalleryPage() {
     >
       <GalleryHeader />
 
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground/50 font-mono">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
+        <p
+          className="text-[10px] uppercase tracking-widest font-mono px-3 py-1.5 rounded-full"
+          style={{
+            color: "hsl(var(--muted-foreground) / 0.5)",
+            background: "hsl(var(--background) / 0.4)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+          }}
+        >
           scroll / drag to move
         </p>
       </div>
@@ -117,7 +149,7 @@ export default function GalleryPage() {
               >
                 {/* Single inner wrapper — parallax moves THIS entire block */}
                 <div>
-                  <div className="overflow-hidden rounded-sm">
+                  <div className="overflow-hidden rounded-lg">
                     <img
                       src={item.src}
                       alt={item.title}
@@ -129,11 +161,20 @@ export default function GalleryPage() {
                       }}
                     />
                   </div>
-                  <div className="mt-2 px-0.5">
-                    <p className="text-[10px] font-mono font-medium leading-tight" style={{ color: "hsl(var(--muted-foreground))" }}>
+                  <div className="mt-2.5 px-0.5">
+                    <p
+                      className="text-[11px] font-mono font-medium leading-tight"
+                      style={{
+                        color: "hsl(var(--foreground) / 0.7)",
+                        textWrap: "balance",
+                      }}
+                    >
                       {item.title}
                     </p>
-                    <p className="text-[9px] font-mono leading-tight mt-0.5" style={{ color: "hsl(var(--muted-foreground) / 0.6)" }}>
+                    <p
+                      className="text-[10px] font-mono leading-tight mt-0.5"
+                      style={{ color: "hsl(var(--muted-foreground) / 0.5)" }}
+                    >
                       {item.description}
                     </p>
                   </div>
