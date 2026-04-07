@@ -1,18 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useRef } from "react";
-import { motion } from "framer-motion";
-import { ThemeSelector } from "~/components/ThemeSelector";
 import { useInfiniteCanvas } from "~/components/InfiniteCanvas";
-
-const links = [
-  { href: "/", label: "home" },
-  { href: "/blog", label: "articles" },
-  { href: "/gallery", label: "gallery" },
-  { href: "/guestbook", label: "guestbook" },
-];
 
 const galleryItems = [
   { src: "/galleryIMGs/space/01.jpg", title: "Louvre", description: "Galerie d'Apollon", width: 320, height: 427 },
@@ -42,58 +31,6 @@ const positions = [
   { x: 500, y: 850 },     // 10 Madeleine — bottom-center-left
 ];
 
-function GalleryHeader() {
-  const pathname = usePathname();
-  return (
-    <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
-      <nav
-        className="flex flex-row items-center gap-0.5 px-1.5 py-1.5 rounded-full pointer-events-auto"
-        style={{
-          background: "hsl(var(--background) / 0.6)",
-          backdropFilter: "blur(16px) saturate(1.8)",
-          WebkitBackdropFilter: "blur(16px) saturate(1.8)",
-        }}
-      >
-        {links.map((link) => {
-          const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="relative px-3 py-1.5 text-sm rounded-full flex items-center"
-              style={{ minHeight: "36px" }}
-            >
-              {isActive && (
-                <motion.span
-                  layoutId="gallery-nav-indicator"
-                  className="absolute inset-0 rounded-full"
-                  style={{ background: "hsl(var(--foreground) / 0.08)" }}
-                  transition={{ type: "spring", duration: 0.4, bounce: 0 }}
-                />
-              )}
-              <span
-                className="relative z-10"
-                style={{
-                  color: isActive
-                    ? "hsl(var(--foreground))"
-                    : "hsl(var(--muted-foreground))",
-                  transitionProperty: "color",
-                  transitionDuration: "200ms",
-                }}
-              >
-                {link.label}
-              </span>
-            </Link>
-          );
-        })}
-        <div className="ml-0.5">
-          <ThemeSelector />
-        </div>
-      </nav>
-    </div>
-  );
-}
-
 export default function GalleryPage() {
   const canvasRef = useRef<HTMLDivElement>(null);
 
@@ -111,8 +48,6 @@ export default function GalleryPage() {
       className="fixed inset-0 z-50 cursor-grab active:cursor-grabbing select-none"
       style={{ background: "hsl(var(--background))" }}
     >
-      <GalleryHeader />
-
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
         <p
           className="text-[10px] uppercase tracking-widest font-mono px-3 py-1.5 rounded-full"
