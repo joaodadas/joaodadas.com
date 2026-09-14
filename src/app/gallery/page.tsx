@@ -6,14 +6,15 @@ import { useInfiniteCanvas } from "~/components/InfiniteCanvas";
 const galleryItems = [
   { src: "/galleryIMGs/space/01.jpg", title: "Louvre", description: "Galerie d'Apollon", width: 320, height: 427 },
   { src: "/galleryIMGs/space/02.jpg", title: "Soupe à l'oignon", description: "Bistrô parisiense", width: 220, height: 293 },
-  { src: "/galleryIMGs/space/03.jpg", title: "Galerie Nicolas Lenté", description: "Vitrine noturna", width: 260, height: 347 },
+  { src: "/galleryIMGs/space/06.jpg", title: "Wine bar", description: "Drinks & design", width: 280, height: 373 },
   { src: "/galleryIMGs/space/04.jpg", title: "Café Santo Grão", description: "Pátio Batel, Curitiba", width: 240, height: 320 },
   { src: "/galleryIMGs/space/05.jpg", title: "Emy", description: "Pátio Batel, Curitiba", width: 200, height: 267 },
-  { src: "/galleryIMGs/space/06.jpg", title: "Wine bar", description: "Drinks & design", width: 280, height: 373 },
   { src: "/galleryIMGs/space/07.jpg", title: "Louvre", description: "Antiguidades egípcias", width: 230, height: 307 },
-  { src: "/galleryIMGs/space/08.jpg", title: "Nós", description: "Paris, outono", width: 300, height: 400 },
   { src: "/galleryIMGs/space/09.jpg", title: "Porsche 911", description: "Boulevard Saint-Germain", width: 250, height: 333 },
   { src: "/galleryIMGs/space/10.jpg", title: "La Madeleine", description: "Interior da igreja", width: 270, height: 360 },
+  { src: "/galleryIMGs/space/11.jpg", title: "Altare della Patria", description: "Roma, fim de tarde", width: 260, height: 347 },
+  { src: "/galleryIMGs/space/12.jpg", title: "Duomo di Milano", description: "Órgão dourado", width: 300, height: 300 },
+  { src: "/galleryIMGs/space/13.jpg", title: "Premiata", description: "Café, piso de madeira", width: 240, height: 320 },
 ];
 
 // Positions scattered across 2000x1300 canvas
@@ -21,14 +22,15 @@ const galleryItems = [
 const positions = [
   { x: 60, y: 50 },       // 01 Louvre (large) — top-left
   { x: 540, y: 440 },     // 02 Soupe (small) — mid-left
-  { x: 1050, y: 60 },     // 03 Galerie — top-center-right
+  { x: 1050, y: 60 },     // 06 Wine bar — top-center-right
   { x: 1600, y: 480 },    // 04 Bruschetta — mid-right
   { x: 100, y: 900 },     // 05 Sashimi (small) — bottom-left
-  { x: 520, y: 80 },      // 06 Wine bar (large) — top-center-left
   { x: 1400, y: 50 },     // 07 Museum — top-right
-  { x: 900, y: 500 },     // 08 Nós (large) — dead center
-  { x: 1580, y: 880 },    // 09 Porsche — bottom-right
-  { x: 500, y: 850 },     // 10 Madeleine — bottom-center-left
+  { x: 900, y: 500 },     // 08 Porsche — dead center
+  { x: 500, y: 850 },     // 09 Madeleine — bottom-center-left
+  { x: 520, y: 100 },     // 10 Altare della Patria — top-center-left (freed slot)
+  { x: 1550, y: 850 },    // 11 Duomo di Milano — bottom-right
+  { x: 1150, y: 980 },    // 12 Premiata — bottom-center-right
 ];
 
 export default function GalleryPage() {
