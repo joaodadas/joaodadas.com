@@ -20,19 +20,22 @@ const playfairDisplay = Playfair_Display({
   style: ["normal", "italic"],
 });
 
+const DESCRIPTION =
+  "Brazilian founder and software engineer. Building Horizonte, Tech Lead at Lyx.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://joaodadas.com"),
   title: {
     default: "João Vitor Dadas",
     template: "%s - João Vitor Dadas",
   },
-  description: "Brazilian software engineer",
+  description: DESCRIPTION,
   alternates: {
     canonical: "./",
   },
   openGraph: {
     title: "João Vitor Dadas",
-    description: "Brazilian software engineer",
+    description: DESCRIPTION,
     type: "website",
     url: "https://joaodadas.com",
     siteName: "João Vitor Dadas",
@@ -41,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "João Vitor Dadas",
-    description: "Brazilian software engineer",
+    description: DESCRIPTION,
     images: ["/api/og"],
   },
   icons: "/favicon.ico",
@@ -52,9 +55,23 @@ const personJsonLd = {
   "@type": "Person",
   name: "João Vitor Dadas",
   url: "https://joaodadas.com",
-  jobTitle: "Software Engineer",
+  jobTitle: "Founder & Tech Lead",
+  description: DESCRIPTION,
   nationality: "Brazilian",
-  sameAs: ["https://github.com/joaodadas"],
+  worksFor: [
+    {
+      "@type": "Organization",
+      name: "Horizonte",
+      url: "https://horizonteinveste.ai",
+    },
+    { "@type": "Organization", name: "Lyx", url: "https://www.lyx.com.br" },
+    { "@type": "Organization", name: "Ashmont", url: "https://ashmont.studio" },
+  ],
+  sameAs: [
+    "https://github.com/joaodadas",
+    "https://x.com/joaodadas",
+    "https://www.linkedin.com/in/jo%C3%A3o-vitor-dadas/",
+  ],
 };
 
 export default function RootLayout({

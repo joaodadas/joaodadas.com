@@ -28,7 +28,7 @@ export function GET() {
           }}
         />
         <div style={{ fontSize: 30, color: "#8a8178", letterSpacing: 6 }}>
-          SOFTWARE ENGINEER
+          FOUNDER &amp; TECH LEAD
         </div>
         <div
           style={{

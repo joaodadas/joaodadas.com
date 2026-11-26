@@ -28,26 +28,28 @@
   }
 
   .dark {
-    --background: 24 10% 10%;
+    /* #161718: mesmo fundo sólido do dark mode do Substack. As superfícies
+       (card, borda, muted...) usam o mesmo tom neutro para não puxar pro marrom. */
+    --background: 210 4.35% 9.02%;
     --foreground: 12 9% 89%;
-    --card: 20 14% 12%;
+    --card: 210 4% 12%;
     --card-foreground: 12 9% 89%;
-    --popover: 20 14% 12%;
+    --popover: 210 4% 12%;
     --popover-foreground: 12 9% 89%;
     --primary: 12 9% 89%;
     --primary-foreground: 20 14% 10%;
-    --secondary: 20 10% 16%;
+    --secondary: 210 4% 16%;
     --secondary-foreground: 12 9% 89%;
-    --muted: 20 10% 16%;
+    --muted: 210 4% 16%;
     --muted-foreground: 20 5% 55%;
-    --accent: 20 10% 20%;
+    --accent: 210 4% 20%;
     --accent-foreground: 12 9% 89%;
     --destructive: 0 62% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 20 10% 20%;
-    --input: 20 10% 20%;
+    --border: 210 4% 20%;
+    --input: 210 4% 20%;
     --ring: 12 9% 89%;
-    --selected: 20 10% 22%;
+    --selected: 210 4% 22%;
   }
 
   * {
@@ -57,11 +59,6 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-  }
-
-  .dark body {
-    background-image: url("/noise.png");
-    background-repeat: repeat;
   }
 
   ::selection {
